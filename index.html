@@ -37,6 +37,7 @@
     }
 
     .avatar {
+      position: relative;
       width: 4.75rem;
       height: 4.75rem;
       margin: 0 auto 1rem;
@@ -47,12 +48,14 @@
       font-weight: 600;
       color: #fff;
       background: #1c1917;
+      overflow: hidden;
     }
 
     .avatar img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       object-fit: cover;
     }
 
@@ -182,14 +185,20 @@
       return "";
     }
 
+    function avatarHtml(data) {
+      const fallback = (data.initials || data.name.slice(0, 2)).toUpperCase();
+      const photo = data.photo
+        ? `<img src="${data.photo}" alt="" onerror="this.remove()">`
+        : "";
+      return `<div class="avatar"><span class="avatar-fallback">${fallback}</span>${photo}</div>`;
+    }
+
     function render(data) {
       document.title = data.name;
       document.querySelector('meta[name="description"]').content =
         bioText(data) || `Personal links — ${data.name}`;
 
-      const avatar = data.photo
-        ? `<img src="${data.photo}" alt="">`
-        : (data.initials || data.name.slice(0, 2)).toUpperCase();
+      const avatar = avatarHtml(data);
 
       const links = (data.links || [])
         .map((item) => {
@@ -205,7 +214,7 @@
 
       app.innerHTML = `
         <header class="profile">
-          <div class="avatar">${avatar}</div>
+          ${avatar}
           <h1>${data.name}</h1>
           ${bioHtml(data)}
         </header>
