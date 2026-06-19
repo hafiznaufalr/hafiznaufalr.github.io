@@ -15,20 +15,22 @@
 
     body {
       min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 16px;
       line-height: 1.5;
       color: #111;
       background: #f5f5f4;
-      padding: max(2rem, env(safe-area-inset-top))
+      padding: max(1.25rem, env(safe-area-inset-top))
                max(1.25rem, env(safe-area-inset-right))
-               max(2rem, env(safe-area-inset-bottom))
+               max(1.25rem, env(safe-area-inset-bottom))
                max(1.25rem, env(safe-area-inset-left));
     }
 
     main {
       width: min(100%, 22rem);
-      margin: 0 auto;
     }
 
     .profile {
@@ -38,13 +40,13 @@
 
     .avatar {
       position: relative;
-      width: 4.75rem;
-      height: 4.75rem;
+      width: 8rem;
+      height: 8rem;
       margin: 0 auto 1rem;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      font-size: 1.125rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: #fff;
       background: #1c1917;
