@@ -2,14 +2,205 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=https://hafiznaufalr.github.io/see-the-world/">
-  <link rel="canonical" href="https://hafiznaufalr.github.io/see-the-world/">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <title>See The World Playlist</title>
-  <script>location.replace('https://hafiznaufalr.github.io/see-the-world/');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hafiz Naufal Rahman</title>
+  <meta name="description" content="Personal links — resume and travel gallery.">
+  <link rel="canonical" href="https://hafiznaufalr.github.io/">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #111;
+      background: #f5f5f4;
+      padding: max(2rem, env(safe-area-inset-top))
+               max(1.25rem, env(safe-area-inset-right))
+               max(2rem, env(safe-area-inset-bottom))
+               max(1.25rem, env(safe-area-inset-left));
+    }
+
+    main {
+      width: min(100%, 22rem);
+      margin: 0 auto;
+    }
+
+    .profile {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .avatar {
+      width: 4.75rem;
+      height: 4.75rem;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #fff;
+      background: #1c1917;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .bio-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      color: #57534e;
+      font-size: 0.9375rem;
+    }
+
+    .bio-icon {
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      list-style: none;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      min-height: 3.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.875rem;
+      border: 1px solid #e7e5e4;
+      background: #fff;
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .link:active {
+      background: #fafaf9;
+    }
+
+    @media (hover: hover) {
+      .link:hover {
+        border-color: #d6d3d1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    .link-emoji {
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+
+    .link-body {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .link-label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .link-note {
+      display: block;
+      margin-top: 0.05rem;
+      font-size: 0.8125rem;
+      color: #78716c;
+    }
+
+    .status {
+      text-align: center;
+      color: #78716c;
+      font-size: 0.875rem;
+      padding: 2rem 0;
+    }
+
+    .status.error {
+      color: #b91c1c;
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="https://hafiznaufalr.github.io/see-the-world/">See The World Playlist</a>…</p>
+  <main id="app">
+    <p class="status">Loading…</p>
+  </main>
+
+  <script>
+    const app = document.getElementById("app");
+
+    function render(data) {
+      document.title = data.name;
+      document.querySelector('meta[name="description"]').content =
+        data.bio || `Personal links — ${data.name}`;
+
+      const avatar = data.photo
+        ? `<img src="${data.photo}" alt="">`
+        : (data.initials || data.name.slice(0, 2)).toUpperCase();
+
+      const links = (data.links || [])
+        .map((item) => {
+          const emoji = item.emoji
+            ? `<span class="link-emoji" aria-hidden="true">${item.emoji}</span>`
+            : "";
+          const note = item.note
+            ? `<span class="link-note">${item.note}</span>`
+            : "";
+          return `<li><a class="link" href="${item.url}" rel="noopener noreferrer">${emoji}<span class="link-body"><span class="link-label">${item.label}</span>${note}</span></a></li>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <header class="profile">
+          <div class="avatar">${avatar}</div>
+          <h1>${data.name}</h1>
+          ${data.bio ? `
+            <p class="bio-row">
+              ${data.bioIcon ? `<img class="bio-icon" src="${data.bioIcon}" alt="">` : ""}
+              <span>${data.bio}</span>
+            </p>
+          ` : ""}
+        </header>
+        <ul class="links" aria-label="Links">${links}</ul>
+      `;
+    }
+
+    fetch("data.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load data.json");
+        return res.json();
+      })
+      .then(render)
+      .catch(() => {
+        app.innerHTML = '<p class="status error">Could not load links. Check data.json.</p>';
+      });
+  </script>
 </body>
 </html>

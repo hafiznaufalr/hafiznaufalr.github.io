@@ -1,0 +1,20 @@
+{
+  "name": "Hafiz Naufal Rahman",
+  "initials": "HN",
+  "bio": "Engineering @ Gojek",
+  "bioIcon": "icons/gojek.svg",
+  "links": [
+    {
+      "label": "Resume",
+      "note": "Digital downloadable resume",
+      "emoji": "📄",
+      "url": "https://hafiznaufalr.github.io/resumify/"
+    },
+    {
+      "label": "See The World Playlist",
+      "note": "Side quest",
+      "emoji": "🌍",
+      "url": "https://hafiznaufalr.github.io/see-the-world/"
+    }
+  ]
+}
