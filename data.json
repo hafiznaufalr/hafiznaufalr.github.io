@@ -1,7 +1,8 @@
 {
   "name": "Hafiz Naufal Rahman",
   "initials": "HN",
-  "bio": "Engineering @ Gojek",
+  "bioBefore": "Engineering",
+  "bioAfter": "Gojek",
   "bioIcon": "icons/gojek.svg",
   "links": [
     {

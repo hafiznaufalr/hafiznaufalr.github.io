@@ -156,10 +156,36 @@
   <script>
     const app = document.getElementById("app");
 
+    function bioText(data) {
+      if (data.bioBefore && data.bioAfter) {
+        return `${data.bioBefore} ${data.bioAfter}`;
+      }
+      return data.bio || "";
+    }
+
+    function bioHtml(data) {
+      if (data.bioBefore && data.bioAfter) {
+        const icon = data.bioIcon
+          ? `<img class="bio-icon" src="${data.bioIcon}" alt="Gojek">`
+          : `<span class="bio-at">@</span>`;
+        return `
+          <p class="bio-row">
+            <span>${data.bioBefore}</span>
+            ${icon}
+            <span>${data.bioAfter}</span>
+          </p>
+        `;
+      }
+      if (data.bio) {
+        return `<p class="bio-row"><span>${data.bio}</span></p>`;
+      }
+      return "";
+    }
+
     function render(data) {
       document.title = data.name;
       document.querySelector('meta[name="description"]').content =
-        data.bio || `Personal links — ${data.name}`;
+        bioText(data) || `Personal links — ${data.name}`;
 
       const avatar = data.photo
         ? `<img src="${data.photo}" alt="">`
@@ -181,12 +207,7 @@
         <header class="profile">
           <div class="avatar">${avatar}</div>
           <h1>${data.name}</h1>
-          ${data.bio ? `
-            <p class="bio-row">
-              ${data.bioIcon ? `<img class="bio-icon" src="${data.bioIcon}" alt="">` : ""}
-              <span>${data.bio}</span>
-            </p>
-          ` : ""}
+          ${bioHtml(data)}
         </header>
         <ul class="links" aria-label="Links">${links}</ul>
       `;
