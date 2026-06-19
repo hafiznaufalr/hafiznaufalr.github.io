@@ -38,11 +38,43 @@
       margin-bottom: 1.75rem;
     }
 
-    .avatar {
+    .avatar-wrap {
       position: relative;
       width: 8rem;
       height: 8rem;
       margin: 0 auto 1rem;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -0.2rem;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #78716c;
+      pointer-events: none;
+      animation: ring-once 1.2s ease-out forwards;
+    }
+
+    @keyframes ring-once {
+      0% {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+      80% {
+        transform: rotate(360deg);
+        opacity: 1;
+      }
+      100% {
+        transform: rotate(360deg);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .avatar {
+      position: relative;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       display: grid;
       place-items: center;
@@ -151,6 +183,12 @@
     .status.error {
       color: #b91c1c;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .avatar-ring {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -192,7 +230,15 @@
       const photo = data.photo
         ? `<img src="${data.photo}" alt="" onerror="this.remove()">`
         : "";
-      return `<div class="avatar"><span class="avatar-fallback">${fallback}</span>${photo}</div>`;
+      return `
+        <div class="avatar-wrap">
+          <div class="avatar-ring" aria-hidden="true"></div>
+          <div class="avatar">
+            <span class="avatar-fallback">${fallback}</span>
+            ${photo}
+          </div>
+        </div>
+      `;
     }
 
     function render(data) {
