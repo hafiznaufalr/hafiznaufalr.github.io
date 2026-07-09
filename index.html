@@ -36,7 +36,9 @@
       font-size: 16px;
       line-height: 1.5;
       color: #f5f5f5;
-      background: #141414;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(88, 28, 135, 0.28), transparent 24rem),
+        #141414;
       padding: max(1rem, env(safe-area-inset-top))
                max(1rem, env(safe-area-inset-right))
                max(1rem, env(safe-area-inset-bottom))
@@ -44,6 +46,8 @@
     }
 
     main {
+      position: relative;
+      z-index: 1;
       width: min(100%, 22rem);
     }
 
@@ -56,7 +60,6 @@
       position: relative;
       width: min(100%, 22rem);
       aspect-ratio: 320 / 390;
-      height: auto;
       margin: 0 auto 1.25rem;
       isolation: isolate;
     }
@@ -66,126 +69,46 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       overflow: visible;
+      pointer-events: none;
       opacity: 0;
-      transition: opacity 0.25s ease;
     }
 
     .avatar-stage.is-constructing .susanoo {
-      opacity: 1;
+      animation: susanoo-reveal 0.7s ease-out forwards;
     }
 
-    .susanoo-back { z-index: 0; }
-    .susanoo-front { z-index: 2; }
-
-    .susanoo-part {
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      opacity: 0;
-      animation: susanoo-draw 0.45s ease-out forwards;
-    }
-
-    .susanoo-fade {
-      opacity: 0;
-      animation: susanoo-fade 0.5s ease-out forwards;
-    }
-
-    .susanoo-aura {
-      fill: rgba(91, 33, 182, 0.12);
-      stroke: none;
-      animation: susanoo-fade 0.7s ease-out forwards;
-    }
-
-    .susanoo-wing {
-      fill: rgba(76, 29, 149, 0.32);
-      stroke: #7c3aed;
-      stroke-width: 1.6;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-body {
-      fill: rgba(91, 33, 182, 0.34);
-      stroke: #9333ea;
-      stroke-width: 1.8;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-armor-fill {
-      fill: rgba(109, 40, 217, 0.38);
-      stroke: #a78bfa;
-      stroke-width: 1.6;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-line {
-      fill: none;
-      stroke: #c4b5fd;
-      stroke-width: 1.3;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-mask {
-      fill: rgba(109, 40, 217, 0.45);
-      stroke: #ddd6fe;
-      stroke-width: 1.8;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-detail {
-      fill: none;
-      stroke: #ede9fe;
-      stroke-width: 1.5;
-      filter: url(#chakra-glow);
-    }
-
-    .susanoo-hair {
-      fill: none;
-      stroke: #a78bfa;
-      stroke-width: 2;
-      filter: url(#chakra-glow-strong);
-    }
-
-    .susanoo-eye {
-      fill: #f59e0b;
-      stroke: #fbbf24;
-      stroke-width: 0.5;
-      filter: url(#eye-glow);
-    }
-
-    .susanoo-gem {
-      fill: #ede9fe;
-      stroke: #c4b5fd;
-      stroke-width: 0.6;
-      filter: url(#chakra-glow-strong);
-    }
-
-    .smoke {
-      fill: rgba(88, 28, 135, 0.26);
-      stroke: rgba(192, 132, 252, 0.52);
-      stroke-width: 1.1;
-      filter: url(#soft-glow);
-      animation: smoke-pulse 5s ease-in-out infinite;
+    .susanoo-breath {
+      transform-origin: 160px 220px;
+      animation: susanoo-breathe 4.8s ease-in-out infinite;
     }
 
     .aura {
       fill: rgba(109, 40, 217, 0.16);
-      stroke: rgba(216, 180, 254, 0.36);
+      stroke: rgba(216, 180, 254, 0.38);
       stroke-width: 1.2;
       filter: url(#wide-glow);
+      transform-origin: 160px 210px;
+      animation: aura-pulse 3.6s ease-in-out infinite;
+    }
+
+    .smoke {
+      fill: rgba(88, 28, 135, 0.23);
+      stroke: rgba(192, 132, 252, 0.5);
+      stroke-width: 1.1;
+      filter: url(#soft-glow);
+      animation: smoke-drift 5.5s ease-in-out infinite;
     }
 
     .armor {
-      fill: rgba(91, 33, 182, 0.42);
+      fill: rgba(91, 33, 182, 0.36);
       stroke: #d8b4fe;
       stroke-width: 1.8;
       filter: url(#hard-glow);
     }
 
     .plate {
-      fill: rgba(126, 34, 206, 0.4);
+      fill: rgba(126, 34, 206, 0.36);
       stroke: #e9d5ff;
       stroke-width: 1.35;
       filter: url(#hard-glow);
@@ -197,131 +120,88 @@
       stroke-width: 1.45;
       stroke-linecap: round;
       stroke-linejoin: round;
+      stroke-dasharray: 10 18;
       filter: url(#hard-glow);
+      animation: chakra-flow 3.2s linear infinite;
     }
 
     .crown {
-      fill: rgba(147, 51, 234, 0.52);
+      fill: rgba(147, 51, 234, 0.5);
       stroke: #f5d0fe;
       stroke-width: 1.5;
       filter: url(#hard-glow);
     }
 
     .eye {
-      fill: #fbbf24;
+      fill: rgba(251, 191, 36, 0.72);
       filter: url(#eye-glow);
-      animation: eye-flare 2.4s ease-in-out infinite;
+      animation: eye-flare 4.8s ease-in-out infinite;
     }
 
     .draw {
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
-      animation: susanoo-draw 0.65s ease-out forwards;
-      animation-play-state: paused;
-    }
-
-    .fade {
       opacity: 0;
-      animation: susanoo-fade 0.7s ease-out forwards;
-      animation-play-state: paused;
     }
 
-    .avatar-stage.is-constructing .draw,
-    .avatar-stage.is-constructing .fade {
-      animation-play-state: running;
+    .avatar-stage.is-constructing .draw {
+      animation: susanoo-draw 0.85s ease-out forwards;
     }
 
-    @keyframes susanoo-draw {
-      to {
-        stroke-dashoffset: 0;
-        opacity: 0.96;
-      }
+    .sword-aura,
+    .sword-core {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#saber-glow);
     }
 
-    @keyframes susanoo-fade {
-      to { opacity: 1; }
+    .sword-aura {
+      stroke: rgba(139, 92, 246, 0.55);
+      stroke-width: 11;
+      animation-delay: 0.75s;
     }
 
-    .susanoo.is-formed {
-      animation: susanoo-breathe 3.5s ease-in-out infinite;
+    .sword-core {
+      stroke: rgba(237, 233, 254, 0.95);
+      stroke-width: 4.2;
+      animation-delay: 0.85s;
     }
 
-    @keyframes susanoo-breathe {
-      0%, 100% { opacity: 0.92; }
-      50% { opacity: 1; }
+    .sword-hilt {
+      fill: rgba(76, 29, 149, 0.74);
+      stroke: #ddd6fe;
+      stroke-width: 1.2;
+      filter: url(#hard-glow);
+      opacity: 0;
     }
 
-    @keyframes smoke-pulse {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-        opacity: 0.72;
-      }
-
-      50% {
-        transform: translateY(-4px) scale(1.025);
-        opacity: 0.95;
-      }
+    .avatar-stage.is-constructing .sword-hilt {
+      animation: susanoo-fade 0.45s ease-out 1.25s forwards;
     }
 
-    @keyframes eye-flare {
-      0%, 100% { opacity: 0.72; }
-      50% { opacity: 1; }
+    .hand {
+      fill: rgba(126, 34, 206, 0.54);
+      stroke: #e9d5ff;
+      stroke-width: 1.2;
+      filter: url(#hard-glow);
+      opacity: 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .susanoo-part,
-      .susanoo-fade,
-      .susanoo-aura,
-      .draw,
-      .fade,
-      .smoke,
-      .eye {
-        animation: none;
-        stroke-dashoffset: 0;
-        opacity: 0.96;
-      }
-
-      .susanoo.is-formed {
-        animation: none;
-        opacity: 0.96;
-      }
+    .avatar-stage.is-constructing .hand {
+      animation: susanoo-fade 0.45s ease-out 1.35s forwards;
     }
 
-    .avatar-wrap {
-      position: absolute;
-      z-index: 1;
-      top: 55%;
-      left: 50%;
-      width: 34%;
-      aspect-ratio: 1;
-      height: auto;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 2px rgba(167, 139, 250, 0.35),
-        0 0 32px rgba(124, 58, 237, 0.35);
+    .mote {
+      fill: #ddd6fe;
+      filter: url(#eye-glow);
+      opacity: 0;
+      animation: mote-rise 4.6s ease-in-out infinite;
     }
 
-    .avatar {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(196, 181, 253, 0.28), transparent 52%),
-        radial-gradient(circle at 50% 100%, rgba(76, 29, 149, 0.45), rgba(30, 16, 56, 0.95) 70%);
-      overflow: hidden;
-    }
-
-    .avatar img {
-      position: absolute;
-      left: 50%;
-      bottom: -22%;
-      width: 118%;
-      height: 92%;
-      transform: translateX(-50%);
-      object-fit: contain;
-      object-position: center bottom;
+    .mote:nth-of-type(2) { animation-delay: -1.2s; }
+    .mote:nth-of-type(3) { animation-delay: -2.4s; }
+    .mote:nth-of-type(4) { animation-delay: -3.3s; }
     }
 
     h1 {
@@ -403,6 +283,51 @@
       color: #a3a3a3;
     }
 
+    @keyframes susanoo-reveal {
+      to { opacity: 1; }
+    }
+
+    @keyframes susanoo-draw {
+      to {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
+    @keyframes susanoo-fade {
+      to { opacity: 1; }
+    }
+
+    @keyframes susanoo-breathe {
+      0%, 100% { opacity: 0.82; transform: scale(0.992); }
+      50% { opacity: 1; transform: scale(1.012); }
+    }
+
+    @keyframes aura-pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.98); }
+      50% { opacity: 0.9; transform: scale(1.03); }
+    }
+
+    @keyframes smoke-drift {
+      0%, 100% { transform: translateY(0); opacity: 0.65; }
+      50% { transform: translateY(-5px); opacity: 0.9; }
+    }
+
+    @keyframes chakra-flow {
+      to { stroke-dashoffset: -56; }
+    }
+
+    @keyframes eye-flare {
+      0%, 100% { opacity: 0.42; }
+      50% { opacity: 0.76; }
+    }
+
+    @keyframes mote-rise {
+      0% { opacity: 0; transform: translateY(24px); }
+      18% { opacity: 0.78; }
+      100% { opacity: 0; transform: translateY(-76px); }
+    }
+
     .status {
       text-align: center;
       color: #a3a3a3;
@@ -432,13 +357,33 @@
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .susanoo-breath,
+      .aura,
+      .smoke,
+      .line,
+      .eye,
+      .mote,
+      .draw,
+      .sword-hilt,
+      .hand {
+        animation: none;
+        opacity: 1;
+        stroke-dashoffset: 0;
+      }
+
+      .susanoo {
+        opacity: 1;
+      }
+    }
+
     @media (max-height: 740px) {
       .profile {
         margin-bottom: 1rem;
       }
 
       .avatar-stage {
-        width: min(92%, 16rem);
+        width: min(92%, 17rem);
         margin-bottom: 1rem;
       }
     }
@@ -464,72 +409,80 @@
       return `<p class="bio-row"><span>${data.bio}</span>${icon}</p>`;
     }
 
-    function susanooDefs() {
-      return `
-        <defs>
-          <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="3.4" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <filter id="wide-glow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="6" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <filter id="hard-glow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="2.3" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <filter id="eye-glow" x="-140%" y="-140%" width="380%" height="380%">
-            <feGaussianBlur stdDeviation="2.1" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-      `;
-    }
-
-    function avatarHtml(data) {
-      const photo = data.photo
-        ? `<img src="${data.photo}" alt="">`
-        : "";
+    function avatarHtml() {
       return `
         <div class="avatar-stage">
-          <svg class="susanoo susanoo-back" viewBox="0 0 320 390" aria-hidden="true">
-            ${susanooDefs()}
-            <path class="smoke fade" style="animation-delay:0s" d="M44 180 C18 162 10 132 28 106 C8 68 38 36 76 50 C92 18 136 22 150 54 C174 18 222 22 238 58 C278 44 310 78 294 118 C316 144 300 178 268 186 C238 160 198 146 160 146 C120 146 78 158 44 180 Z"/>
-            <path class="smoke fade" style="animation-delay:0.08s" d="M24 250 C4 224 14 190 44 180 C76 166 112 178 124 210 C96 224 86 262 100 302 C68 304 42 284 24 250 Z"/>
-            <path class="smoke fade" style="animation-delay:0.14s" d="M296 250 C316 224 306 190 276 180 C244 166 208 178 196 210 C224 224 234 262 220 302 C252 304 278 284 296 250 Z"/>
-            <ellipse class="aura fade" style="animation-delay:0.18s" cx="160" cy="210" rx="126" ry="158"/>
-            <path class="armor draw" pathLength="1" style="animation-delay:0.25s" d="M104 156 C88 180 82 214 86 254 L96 300 L124 326 L160 334 L196 326 L224 300 L234 254 C238 214 232 180 216 156 L184 138 L160 134 L136 138 Z"/>
-            <path class="plate draw" pathLength="1" style="animation-delay:0.34s" d="M114 166 L82 174 L54 200 L66 226 L100 216 L126 186 Z"/>
-            <path class="plate draw" pathLength="1" style="animation-delay:0.41s" d="M206 166 L238 174 L266 200 L254 226 L220 216 L194 186 Z"/>
-            <path class="line draw" pathLength="1" style="animation-delay:0.48s" d="M112 222 C132 210 148 206 160 206 C172 206 188 210 208 222"/>
-            <path class="line draw" pathLength="1" style="animation-delay:0.55s" d="M104 246 C128 236 148 232 160 232 C172 232 192 236 216 246"/>
-            <path class="line draw" pathLength="1" style="animation-delay:0.62s" d="M110 272 L210 272 M120 294 L200 294"/>
-            <path class="line draw" pathLength="1" style="animation-delay:0.69s" d="M142 142 L128 202 M178 142 L192 202 M160 136 L160 326"/>
-          </svg>
-          <div class="avatar-wrap">
-            <div class="avatar">${photo}</div>
-          </div>
-          <svg class="susanoo susanoo-front" viewBox="0 0 320 390" aria-hidden="true">
-            <path class="crown draw" pathLength="1" style="animation-delay:0.78s" d="M122 78 L134 42 L146 72 L160 26 L174 72 L188 42 L198 78 L190 116 L170 130 L160 134 L150 130 L130 116 Z"/>
-            <path class="armor draw" pathLength="1" style="animation-delay:0.86s" d="M126 82 C132 58 150 48 160 48 C170 48 188 58 194 82 L202 110 C198 124 182 134 160 134 C138 134 122 124 118 110 Z"/>
-            <path class="line draw" pathLength="1" style="animation-delay:0.94s" d="M160 70 L160 126 L150 132 L160 138 L170 132 Z"/>
-            <path class="line draw" pathLength="1" style="animation-delay:1.02s" d="M138 110 C150 120 170 120 182 110"/>
-            <circle class="eye fade" style="animation-delay:1.1s" cx="144" cy="84" r="4.8"/>
-            <circle class="eye fade" style="animation-delay:1.16s" cx="176" cy="84" r="4.8"/>
-            <path class="line draw" pathLength="1" style="animation-delay:1.22s" d="M76 224 L104 244 L116 280 M244 224 L216 244 L204 280"/>
+          <svg class="susanoo" viewBox="0 0 320 390" aria-hidden="true">
+            <defs>
+              <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="3.4" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <filter id="wide-glow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="6" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <filter id="hard-glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="2.3" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <filter id="eye-glow" x="-140%" y="-140%" width="380%" height="380%">
+                <feGaussianBlur stdDeviation="2.1" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <filter id="saber-glow" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="5" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g class="susanoo-breath">
+              <path class="smoke" d="M44 180 C18 162 10 132 28 106 C8 68 38 36 76 50 C92 18 136 22 150 54 C174 18 222 22 238 58 C278 44 310 78 294 118 C316 144 300 178 268 186 C238 160 198 146 160 146 C120 146 78 158 44 180 Z"/>
+              <path class="smoke" d="M24 250 C4 224 14 190 44 180 C76 166 112 178 124 210 C96 224 86 262 100 302 C68 304 42 284 24 250 Z"/>
+              <path class="smoke" d="M296 250 C316 224 306 190 276 180 C244 166 208 178 196 210 C224 224 234 262 220 302 C252 304 278 284 296 250 Z"/>
+              <ellipse class="aura" cx="160" cy="210" rx="126" ry="158"/>
+              <path class="armor draw" pathLength="1" style="animation-delay:0.2s" d="M104 156 C88 180 82 214 86 254 L96 300 L124 326 L160 334 L196 326 L224 300 L234 254 C238 214 232 180 216 156 L184 138 L160 134 L136 138 Z"/>
+              <path class="plate draw" pathLength="1" style="animation-delay:0.32s" d="M114 166 L82 174 L54 200 L66 226 L100 216 L126 186 Z"/>
+              <path class="plate draw" pathLength="1" style="animation-delay:0.4s" d="M206 166 L238 174 L266 200 L254 226 L220 216 L194 186 Z"/>
+              <path class="crown draw" pathLength="1" style="animation-delay:0.5s" d="M122 78 L134 42 L146 72 L160 26 L174 72 L188 42 L198 78 L190 116 L170 130 L160 134 L150 130 L130 116 Z"/>
+              <path class="armor draw" pathLength="1" style="animation-delay:0.62s" d="M126 82 C132 58 150 48 160 48 C170 48 188 58 194 82 L202 110 C198 124 182 134 160 134 C138 134 122 124 118 110 Z"/>
+              <path class="line" d="M160 70 L160 126 L150 132 L160 138 L170 132 Z"/>
+              <path class="line" d="M138 110 C150 120 170 120 182 110"/>
+              <path class="line" d="M112 222 C132 210 148 206 160 206 C172 206 188 210 208 222"/>
+              <path class="line" d="M104 246 C128 236 148 232 160 232 C172 232 192 236 216 246"/>
+              <path class="line" d="M110 272 L210 272 M120 294 L200 294"/>
+              <path class="line" d="M142 142 L128 202 M178 142 L192 202 M160 136 L160 326"/>
+              <path class="sword-aura draw" pathLength="1" style="animation-delay:0.75s" d="M106 220 L52 70"/>
+              <path class="sword-core draw" pathLength="1" style="animation-delay:0.85s" d="M106 220 L52 70"/>
+              <path class="sword-aura draw" pathLength="1" style="animation-delay:0.75s" d="M214 220 L268 70"/>
+              <path class="sword-core draw" pathLength="1" style="animation-delay:0.85s" d="M214 220 L268 70"/>
+              <path class="line" d="M76 224 L96 216 L110 236 M244 224 L224 216 L210 236"/>
+              <path class="sword-hilt" d="M88 217 L116 207 L121 220 L93 230 Z"/>
+              <path class="sword-hilt" d="M204 207 L232 217 L227 230 L199 220 Z"/>
+              <path class="hand" d="M92 216 L112 210 L119 222 L106 232 L94 228 Z"/>
+              <path class="hand" d="M208 210 L228 216 L226 228 L214 232 L201 222 Z"/>
+              <circle class="eye" cx="144" cy="84" r="3.2"/>
+              <circle class="eye" cx="176" cy="84" r="3.2"/>
+              <circle class="mote" cx="74" cy="244" r="2.4"/>
+              <circle class="mote" cx="245" cy="236" r="2.2"/>
+              <circle class="mote" cx="102" cy="140" r="1.9"/>
+              <circle class="mote" cx="218" cy="150" r="2.1"/>
+            </g>
           </svg>
         </div>
       `;
@@ -539,18 +492,9 @@
       const stage = root.querySelector(".avatar-stage");
       if (!stage) return;
 
-      const start = () => {
-        window.setTimeout(() => stage.classList.add("is-constructing"), 350);
-      };
-      const photo = stage.querySelector(".avatar img");
-
-      if (!photo || photo.complete) {
-        start();
-        return;
-      }
-
-      photo.addEventListener("load", start, { once: true });
-      photo.addEventListener("error", start, { once: true });
+      window.setTimeout(() => {
+        stage.classList.add("is-constructing");
+      }, 300);
     }
 
     function render(data) {
