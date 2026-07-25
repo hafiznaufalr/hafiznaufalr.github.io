@@ -7,10 +7,11 @@
   "location": "South Jakarta, Indonesia 🇮🇩",
   "email": "hafiznaufalr@gmail.com",
   "linkedin": "https://www.linkedin.com/in/hafiznaufalr/",
+  "cursor": "https://cursor.com/@hafiznaufalr",
   "links": [
     {
       "label": "Resume",
-      "note": "Digital downloadable resume",
+      "note": "Downloadable resume",
       "emoji": "📄",
       "url": "https://hafiznaufalr.github.io/resumify/"
     },
