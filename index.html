@@ -161,7 +161,7 @@
 
     .gojek-car {
       position: absolute;
-      top: 0.4rem;
+      top: -1.15rem;
       left: calc(100% - 2.6rem);
       z-index: 2;
       font-size: 1.05rem;
@@ -170,7 +170,7 @@
       pointer-events: none;
       user-select: none;
       opacity: 0;
-      animation: gojek-drive 1.05s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+      animation: gojek-drive 2.2s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
     }
 
     @keyframes gojek-drive {
@@ -179,13 +179,13 @@
         opacity: 0;
         transform: translateY(0);
       }
-      12% {
+      10% {
         opacity: 1;
       }
       50% {
         transform: translateY(-1px);
       }
-      88% {
+      90% {
         opacity: 1;
       }
       100% {
