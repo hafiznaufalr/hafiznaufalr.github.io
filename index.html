@@ -139,6 +139,40 @@
       flex: 0 0 auto;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      /* ponytail: soft shine every 8s — hint that logo is tappable */
+      animation: gojek-shine 8s ease-in-out infinite;
+    }
+
+    @keyframes gojek-shine {
+      0% {
+        filter: brightness(1) drop-shadow(0 0 0 transparent);
+        transform: scale(1);
+      }
+      6% {
+        filter: brightness(1.45) drop-shadow(0 0 7px rgba(0, 168, 20, 0.75));
+        transform: scale(1.12);
+      }
+      12% {
+        filter: brightness(1.2) drop-shadow(0 0 3px rgba(0, 168, 20, 0.4));
+        transform: scale(1.04);
+      }
+      18%,
+      100% {
+        filter: brightness(1) drop-shadow(0 0 0 transparent);
+        transform: scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bio-icon {
+        animation: none;
+      }
+    }
+
+    .bio-icon.is-tapped {
+      animation: none;
+      filter: none;
+      transform: none;
     }
 
     .location {
@@ -500,7 +534,15 @@
       }
     }
 
+    function stopGojekShine(logo) {
+      if (!logo || logo.classList.contains("is-tapped")) return;
+      logo.classList.add("is-tapped");
+    }
+
     function driveGojekCar() {
+      const logo = app.querySelector("[data-gojek-tap]");
+      stopGojekShine(logo);
+
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const firstCard = app.querySelector(".links > li:first-child .link");
       if (!firstCard || firstCard.querySelector(".gojek-car")) return;
