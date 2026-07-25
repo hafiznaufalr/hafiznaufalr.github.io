@@ -1,9 +1,12 @@
 {
   "name": "Hafiz Naufal Rahman",
   "initials": "HN",
-  "photo": "images/profile.png",
-  "bio": "Engineering at Gojek",
+  "photo": "images/profile.jpg",
+  "bio": "Product Engineer at Gojek",
   "bioIcon": "icons/gojek.svg",
+  "location": "South Jakarta, Indonesia 🇮🇩",
+  "email": "hafiznaufalr@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/hafiznaufalr/",
   "links": [
     {
       "label": "Resume",
@@ -16,6 +19,12 @@
       "note": "Side quest",
       "emoji": "🌍",
       "url": "https://hafiznaufalr.github.io/see-the-world/"
+    },
+    {
+      "label": "Coming soon",
+      "note": "Building frictionless platform for SMEs",
+      "emoji": "🧩",
+      "comingSoon": true
     }
   ]
 }

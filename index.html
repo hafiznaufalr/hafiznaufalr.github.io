@@ -4,17 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Hafiz Naufal Rahman</title>
-  <meta name="description" content="Engineering at Gojek — Resume and travel gallery.">
+  <meta name="description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
   <link rel="canonical" href="https://hafiznaufalr.github.io/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hafiz Naufal Rahman">
+  <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://hafiznaufalr.github.io/">
-  <meta property="og:title" content="Hafiz Naufal Rahman">
-  <meta property="og:description" content="Engineering at Gojek — Resume and travel gallery.">
-  <meta property="og:image" content="https://hafiznaufalr.github.io/images/profile.png">
+  <meta property="og:title" content="Hafiz Naufal Rahman — Product Engineer at Gojek">
+  <meta property="og:description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
+  <meta property="og:image" content="https://hafiznaufalr.github.io/images/profile.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="917">
   <meta property="og:image:height" content="917">
-  <meta property="og:image:alt" content="Hafiz Naufal Rahman">
-  <meta name="theme-color" content="#141414">
+  <meta property="og:image:alt" content="Portrait of Hafiz Naufal Rahman">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hafiz Naufal Rahman — Product Engineer at Gojek">
+  <meta name="twitter:description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
+  <meta name="twitter:image" content="https://hafiznaufalr.github.io/images/profile.jpg">
+  <meta name="twitter:image:alt" content="Portrait of Hafiz Naufal Rahman">
+  <meta name="theme-color" content="#0f0f12">
   <style>
     * {
       box-sizing: border-box;
@@ -24,10 +32,11 @@
 
     html {
       color-scheme: dark;
-      overflow-x: clip;
     }
 
     body {
+      position: relative;
+      isolation: isolate;
       min-height: 100dvh;
       display: flex;
       align-items: center;
@@ -36,18 +45,39 @@
       font-size: 16px;
       line-height: 1.5;
       color: #f5f5f5;
+      background: #0f0f12;
+      padding: max(1.25rem, env(safe-area-inset-top))
+               max(1.25rem, env(safe-area-inset-right))
+               max(1.25rem, env(safe-area-inset-bottom))
+               max(1.25rem, env(safe-area-inset-left));
+    }
+
+    /* ponytail: blurred field light — aesthetic on wide screens, not photo halo */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: -1;
+      pointer-events: none;
       background:
-        radial-gradient(circle at 50% 34%, rgba(88, 28, 135, 0.28), transparent 24rem),
-        #141414;
-      padding: max(1rem, env(safe-area-inset-top))
-               max(1rem, env(safe-area-inset-right))
-               max(1rem, env(safe-area-inset-bottom))
-               max(1rem, env(safe-area-inset-left));
+        radial-gradient(circle at 18% 22%, rgba(124, 58, 237, 0.38), transparent 32%),
+        radial-gradient(circle at 82% 78%, rgba(91, 33, 182, 0.28), transparent 36%),
+        radial-gradient(circle at 70% 18%, rgba(167, 139, 250, 0.1), transparent 28%);
+      filter: blur(72px);
+      transform: translateZ(0);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 45%, transparent 35%, rgba(8, 8, 12, 0.55) 100%);
     }
 
     main {
-      position: relative;
-      z-index: 1;
       width: min(100%, 22rem);
     }
 
@@ -56,152 +86,35 @@
       margin-bottom: 1.75rem;
     }
 
-    .avatar-stage {
-      position: relative;
-      width: min(100%, 22rem);
-      aspect-ratio: 320 / 390;
-      margin: 0 auto 1.25rem;
-      isolation: isolate;
+    .avatar-wrap {
+      width: 8rem;
+      height: 8rem;
+      margin: 0 auto 1rem;
     }
 
-    .susanoo {
-      position: absolute;
-      inset: 0;
+    .avatar {
+      position: relative;
       width: 100%;
       height: 100%;
-      overflow: visible;
-      pointer-events: none;
-      opacity: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      background: #1c1917;
+      overflow: hidden;
     }
 
-    .avatar-stage.is-constructing .susanoo {
-      animation: susanoo-reveal 0.7s ease-out forwards;
-    }
-
-    .susanoo-breath {
-      transform-origin: 160px 220px;
-      animation: susanoo-breathe 4.8s ease-in-out infinite;
-    }
-
-    .aura {
-      fill: rgba(109, 40, 217, 0.16);
-      stroke: rgba(216, 180, 254, 0.38);
-      stroke-width: 1.2;
-      filter: url(#wide-glow);
-      transform-origin: 160px 210px;
-      animation: aura-pulse 3.6s ease-in-out infinite;
-    }
-
-    .smoke {
-      fill: rgba(88, 28, 135, 0.23);
-      stroke: rgba(192, 132, 252, 0.5);
-      stroke-width: 1.1;
-      filter: url(#soft-glow);
-      animation: smoke-drift 5.5s ease-in-out infinite;
-    }
-
-    .armor {
-      fill: rgba(91, 33, 182, 0.36);
-      stroke: #d8b4fe;
-      stroke-width: 1.8;
-      filter: url(#hard-glow);
-    }
-
-    .plate {
-      fill: rgba(126, 34, 206, 0.36);
-      stroke: #e9d5ff;
-      stroke-width: 1.35;
-      filter: url(#hard-glow);
-    }
-
-    .line {
-      fill: none;
-      stroke: #f3e8ff;
-      stroke-width: 1.45;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 10 18;
-      filter: url(#hard-glow);
-      animation: chakra-flow 3.2s linear infinite;
-    }
-
-    .crown {
-      fill: rgba(147, 51, 234, 0.5);
-      stroke: #f5d0fe;
-      stroke-width: 1.5;
-      filter: url(#hard-glow);
-    }
-
-    .eye {
-      fill: rgba(251, 191, 36, 0.72);
-      filter: url(#eye-glow);
-      animation: eye-flare 4.8s ease-in-out infinite;
-    }
-
-    .draw {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      opacity: 0;
-    }
-
-    .avatar-stage.is-constructing .draw {
-      animation: susanoo-draw 0.85s ease-out forwards;
-    }
-
-    .sword-aura,
-    .sword-core {
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: url(#saber-glow);
-    }
-
-    .sword-aura {
-      stroke: rgba(139, 92, 246, 0.55);
-      stroke-width: 11;
-      animation-delay: 0.75s;
-    }
-
-    .sword-core {
-      stroke: rgba(237, 233, 254, 0.95);
-      stroke-width: 4.2;
-      animation-delay: 0.85s;
-    }
-
-    .sword-hilt {
-      fill: rgba(76, 29, 149, 0.74);
-      stroke: #ddd6fe;
-      stroke-width: 1.2;
-      filter: url(#hard-glow);
-      opacity: 0;
-    }
-
-    .avatar-stage.is-constructing .sword-hilt {
-      animation: susanoo-fade 0.45s ease-out 1.25s forwards;
-    }
-
-    .hand {
-      fill: rgba(126, 34, 206, 0.54);
-      stroke: #e9d5ff;
-      stroke-width: 1.2;
-      filter: url(#hard-glow);
-      opacity: 0;
-    }
-
-    .avatar-stage.is-constructing .hand {
-      animation: susanoo-fade 0.45s ease-out 1.35s forwards;
-    }
-
-    .mote {
-      fill: #ddd6fe;
-      filter: url(#eye-glow);
-      opacity: 0;
-      animation: mote-rise 4.6s ease-in-out infinite;
-    }
-
-    .mote:nth-of-type(2) { animation-delay: -1.2s; }
-    .mote:nth-of-type(3) { animation-delay: -2.4s; }
-    .mote:nth-of-type(4) { animation-delay: -3.3s; }
+    .avatar img {
+      position: absolute;
+      width: 125%;
+      height: 125%;
+      left: 50%;
+      top: 42%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      max-width: none;
     }
 
     h1 {
@@ -223,6 +136,36 @@
       width: 1rem;
       height: 1rem;
       flex: 0 0 auto;
+      cursor: pointer;
+      transform-origin: center;
+      -webkit-tap-highlight-color: transparent;
+      transition: width 0.2s ease, height 0.2s ease;
+    }
+
+    .bio-icon.is-wink {
+      width: 1.75rem;
+      height: 1.75rem;
+      animation: logo-wink 0.65s ease;
+    }
+
+    @keyframes logo-wink {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.15) rotate(-14deg); }
+      50% { transform: scale(0.92) rotate(10deg); }
+      75% { transform: scale(1.08) rotate(-6deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bio-icon.is-wink {
+        animation: none;
+      }
+    }
+
+    .location {
+      margin-top: 0.35rem;
+      color: #737373;
+      font-size: 0.8125rem;
     }
 
     .links {
@@ -232,7 +175,8 @@
       list-style: none;
     }
 
-    .link {
+    .link,
+    .link-soon {
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -259,6 +203,15 @@
       }
     }
 
+    .link-soon {
+      opacity: 0.62;
+      cursor: default;
+      pointer-events: none;
+      user-select: none;
+      border-style: dashed;
+      background: #181818;
+    }
+
     .link-emoji {
       font-size: 1.125rem;
       line-height: 1;
@@ -283,49 +236,77 @@
       color: #a3a3a3;
     }
 
-    @keyframes susanoo-reveal {
-      to { opacity: 1; }
+    .socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.875rem;
+      margin-top: 1.5rem;
     }
 
-    @keyframes susanoo-draw {
-      to {
-        stroke-dashoffset: 0;
-        opacity: 1;
+    .social {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 0;
+      padding: 0;
+      border-radius: 999px;
+      color: #a3a3a3;
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .social svg {
+      width: 1.35rem;
+      height: 1.35rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (hover: hover) {
+      .social:hover {
+        color: #f5f5f5;
+        background: rgba(255, 255, 255, 0.06);
       }
     }
 
-    @keyframes susanoo-fade {
-      to { opacity: 1; }
+    .social:active {
+      color: #f5f5f5;
+      background: rgba(255, 255, 255, 0.08);
     }
 
-    @keyframes susanoo-breathe {
-      0%, 100% { opacity: 0.82; transform: scale(0.992); }
-      50% { opacity: 1; transform: scale(1.012); }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(1.25rem, env(safe-area-inset-bottom));
+      z-index: 20;
+      transform: translateX(-50%) translateY(0.5rem);
+      max-width: calc(100vw - 2rem);
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      border: 1px solid #3f3f46;
+      background: #27272a;
+      color: #fafafa;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
-    @keyframes aura-pulse {
-      0%, 100% { opacity: 0.55; transform: scale(0.98); }
-      50% { opacity: 0.9; transform: scale(1.03); }
-    }
-
-    @keyframes smoke-drift {
-      0%, 100% { transform: translateY(0); opacity: 0.65; }
-      50% { transform: translateY(-5px); opacity: 0.9; }
-    }
-
-    @keyframes chakra-flow {
-      to { stroke-dashoffset: -56; }
-    }
-
-    @keyframes eye-flare {
-      0%, 100% { opacity: 0.42; }
-      50% { opacity: 0.76; }
-    }
-
-    @keyframes mote-rise {
-      0% { opacity: 0; transform: translateY(24px); }
-      18% { opacity: 0.78; }
-      100% { opacity: 0; transform: translateY(-76px); }
+    .toast.is-on {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .status {
@@ -338,55 +319,6 @@
     .status.error {
       color: #f87171;
     }
-
-    @media (max-width: 380px) {
-      body {
-        font-size: 15px;
-      }
-
-      .profile {
-        margin-bottom: 1.25rem;
-      }
-
-      h1 {
-        font-size: 1.125rem;
-      }
-
-      .bio-row {
-        font-size: 0.875rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .susanoo-breath,
-      .aura,
-      .smoke,
-      .line,
-      .eye,
-      .mote,
-      .draw,
-      .sword-hilt,
-      .hand {
-        animation: none;
-        opacity: 1;
-        stroke-dashoffset: 0;
-      }
-
-      .susanoo {
-        opacity: 1;
-      }
-    }
-
-    @media (max-height: 740px) {
-      .profile {
-        margin-bottom: 1rem;
-      }
-
-      .avatar-stage {
-        width: min(92%, 17rem);
-        margin-bottom: 1rem;
-      }
-    }
   </style>
 </head>
 <body>
@@ -396,6 +328,8 @@
 
   <script>
     const app = document.getElementById("app");
+    const EMAIL = "hafiznaufalr@gmail.com";
+    let toastTimer;
 
     function bioText(data) {
       return data.bio || "";
@@ -404,128 +338,162 @@
     function bioHtml(data) {
       if (!data.bio) return "";
       const icon = data.bioIcon
-        ? `<img class="bio-icon" src="${data.bioIcon}" alt="Gojek">`
+        ? `<img class="bio-icon" src="${data.bioIcon}" alt="Gojek" data-logo-wink role="button" tabindex="0" title="👀">`
         : "";
-      return `<p class="bio-row"><span>${data.bio}</span>${icon}</p>`;
+      const location = data.location
+        ? `<p class="location">${data.location}</p>`
+        : "";
+      return `<p class="bio-row"><span>${data.bio}</span>${icon}</p>${location}`;
     }
 
-    function avatarHtml() {
+    function avatarHtml(data) {
+      const fallback = (data.initials || data.name.slice(0, 2)).toUpperCase();
+      const photo = data.photo
+        ? `<img src="${data.photo}" alt="" onerror="this.remove()">`
+        : "";
       return `
-        <div class="avatar-stage">
-          <svg class="susanoo" viewBox="0 0 320 390" aria-hidden="true">
-            <defs>
-              <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
-                <feGaussianBlur stdDeviation="3.4" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-              <filter id="wide-glow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="6" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-              <filter id="hard-glow" x="-80%" y="-80%" width="260%" height="260%">
-                <feGaussianBlur stdDeviation="2.3" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-              <filter id="eye-glow" x="-140%" y="-140%" width="380%" height="380%">
-                <feGaussianBlur stdDeviation="2.1" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-              <filter id="saber-glow" x="-200%" y="-200%" width="500%" height="500%">
-                <feGaussianBlur stdDeviation="5" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            <g class="susanoo-breath">
-              <path class="smoke" d="M44 180 C18 162 10 132 28 106 C8 68 38 36 76 50 C92 18 136 22 150 54 C174 18 222 22 238 58 C278 44 310 78 294 118 C316 144 300 178 268 186 C238 160 198 146 160 146 C120 146 78 158 44 180 Z"/>
-              <path class="smoke" d="M24 250 C4 224 14 190 44 180 C76 166 112 178 124 210 C96 224 86 262 100 302 C68 304 42 284 24 250 Z"/>
-              <path class="smoke" d="M296 250 C316 224 306 190 276 180 C244 166 208 178 196 210 C224 224 234 262 220 302 C252 304 278 284 296 250 Z"/>
-              <ellipse class="aura" cx="160" cy="210" rx="126" ry="158"/>
-              <path class="armor draw" pathLength="1" style="animation-delay:0.2s" d="M104 156 C88 180 82 214 86 254 L96 300 L124 326 L160 334 L196 326 L224 300 L234 254 C238 214 232 180 216 156 L184 138 L160 134 L136 138 Z"/>
-              <path class="plate draw" pathLength="1" style="animation-delay:0.32s" d="M114 166 L82 174 L54 200 L66 226 L100 216 L126 186 Z"/>
-              <path class="plate draw" pathLength="1" style="animation-delay:0.4s" d="M206 166 L238 174 L266 200 L254 226 L220 216 L194 186 Z"/>
-              <path class="crown draw" pathLength="1" style="animation-delay:0.5s" d="M122 78 L134 42 L146 72 L160 26 L174 72 L188 42 L198 78 L190 116 L170 130 L160 134 L150 130 L130 116 Z"/>
-              <path class="armor draw" pathLength="1" style="animation-delay:0.62s" d="M126 82 C132 58 150 48 160 48 C170 48 188 58 194 82 L202 110 C198 124 182 134 160 134 C138 134 122 124 118 110 Z"/>
-              <path class="line" d="M160 70 L160 126 L150 132 L160 138 L170 132 Z"/>
-              <path class="line" d="M138 110 C150 120 170 120 182 110"/>
-              <path class="line" d="M112 222 C132 210 148 206 160 206 C172 206 188 210 208 222"/>
-              <path class="line" d="M104 246 C128 236 148 232 160 232 C172 232 192 236 216 246"/>
-              <path class="line" d="M110 272 L210 272 M120 294 L200 294"/>
-              <path class="line" d="M142 142 L128 202 M178 142 L192 202 M160 136 L160 326"/>
-              <path class="sword-aura draw" pathLength="1" style="animation-delay:0.75s" d="M106 220 L52 70"/>
-              <path class="sword-core draw" pathLength="1" style="animation-delay:0.85s" d="M106 220 L52 70"/>
-              <path class="sword-aura draw" pathLength="1" style="animation-delay:0.75s" d="M214 220 L268 70"/>
-              <path class="sword-core draw" pathLength="1" style="animation-delay:0.85s" d="M214 220 L268 70"/>
-              <path class="line" d="M76 224 L96 216 L110 236 M244 224 L224 216 L210 236"/>
-              <path class="sword-hilt" d="M88 217 L116 207 L121 220 L93 230 Z"/>
-              <path class="sword-hilt" d="M204 207 L232 217 L227 230 L199 220 Z"/>
-              <path class="hand" d="M92 216 L112 210 L119 222 L106 232 L94 228 Z"/>
-              <path class="hand" d="M208 210 L228 216 L226 228 L214 232 L201 222 Z"/>
-              <circle class="eye" cx="144" cy="84" r="3.2"/>
-              <circle class="eye" cx="176" cy="84" r="3.2"/>
-              <circle class="mote" cx="74" cy="244" r="2.4"/>
-              <circle class="mote" cx="245" cy="236" r="2.2"/>
-              <circle class="mote" cx="102" cy="140" r="1.9"/>
-              <circle class="mote" cx="218" cy="150" r="2.1"/>
-            </g>
-          </svg>
+        <div class="avatar-wrap">
+          <div class="avatar">
+            <span class="avatar-fallback">${fallback}</span>
+            ${photo}
+          </div>
         </div>
       `;
     }
 
-    function startSusanooConstruction(root) {
-      const stage = root.querySelector(".avatar-stage");
-      if (!stage) return;
+    function itemHtml(item) {
+      const emoji = item.emoji
+        ? `<span class="link-emoji" aria-hidden="true">${item.emoji}</span>`
+        : "";
+      const note = item.note
+        ? `<span class="link-note">${item.note}</span>`
+        : "";
+      if (item.comingSoon) {
+        return `<li>
+          <div class="link-soon" aria-disabled="true">
+            ${emoji}
+            <span class="link-body">
+              <span class="link-label">${item.label}</span>
+              ${note}
+            </span>
+          </div>
+        </li>`;
+      }
+      return `<li><a class="link" href="${item.url}" rel="noopener noreferrer">${emoji}<span class="link-body"><span class="link-label">${item.label}</span>${note}</span></a></li>`;
+    }
 
-      window.setTimeout(() => {
-        stage.classList.add("is-constructing");
-      }, 300);
+    function socialsHtml(data) {
+      const linkedin = data.linkedin || "https://www.linkedin.com/in/hafiznaufalr/";
+      const email = data.email || EMAIL;
+      return `
+        <nav class="socials" aria-label="Contact">
+          <a class="social" href="${linkedin}" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <button class="social" type="button" data-copy-email aria-label="Copy email" title="Copy ${email}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </button>
+        </nav>
+        <div class="toast" role="status" aria-live="polite"></div>
+      `;
+    }
+
+    function showToast(message) {
+      const toast = document.querySelector(".toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("is-on");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-on"), 1800);
+    }
+
+    async function copyEmail(email) {
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(email);
+          showToast("Email copied");
+          return;
+        }
+        throw new Error("no clipboard api");
+      } catch {
+        const input = document.createElement("textarea");
+        input.value = email;
+        input.setAttribute("readonly", "");
+        input.style.cssText = "position:fixed;left:-9999px;top:0";
+        document.body.appendChild(input);
+        input.select();
+        const ok = document.execCommand("copy");
+        input.remove();
+        // ponytail: if copy blocked, still surface address in toast
+        showToast(ok ? "Email copied" : email);
+      }
+    }
+
+    function winkLogo(icon) {
+      if (!icon || icon.classList.contains("is-wink")) return;
+      icon.classList.add("is-wink");
+      icon.addEventListener(
+        "animationend",
+        () => icon.classList.remove("is-wink"),
+        { once: true }
+      );
+    }
+
+    function shareDescription(data) {
+      const bio = bioText(data);
+      return bio
+        ? `${bio}. Resume, travel gallery, and personal projects.`
+        : `Personal links — ${data.name}`;
+    }
+
+    function setMeta(selector, content) {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute("content", content);
+    }
+
+    function bindInteractions(data) {
+      const email = data.email || EMAIL;
+      app.querySelector("[data-copy-email]")?.addEventListener("click", () => copyEmail(email));
+
+      const logo = app.querySelector("[data-logo-wink]");
+      logo?.addEventListener("click", () => winkLogo(logo));
+      logo?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          winkLogo(logo);
+        }
+      });
     }
 
     function render(data) {
       document.title = data.name;
-      document.querySelector('meta[name="description"]').content =
-        bioText(data) || `Personal links — ${data.name}`;
+      const description = shareDescription(data);
+      setMeta('meta[name="description"]', description);
+      setMeta('meta[property="og:title"]', `${data.name} — ${bioText(data) || "Personal links"}`.replace(/ — $/, ""));
+      setMeta('meta[property="og:description"]', description);
+      setMeta('meta[name="twitter:title"]', `${data.name} — ${bioText(data) || "Personal links"}`.replace(/ — $/, ""));
+      setMeta('meta[name="twitter:description"]', description);
 
-      const avatar = avatarHtml(data);
-
-      const links = (data.links || [])
-        .map((item) => {
-          const emoji = item.emoji
-            ? `<span class="link-emoji" aria-hidden="true">${item.emoji}</span>`
-            : "";
-          const note = item.note
-            ? `<span class="link-note">${item.note}</span>`
-            : "";
-          return `<li><a class="link" href="${item.url}" rel="noopener noreferrer">${emoji}<span class="link-body"><span class="link-label">${item.label}</span>${note}</span></a></li>`;
-        })
-        .join("");
+      const links = (data.links || []).map(itemHtml).join("");
 
       app.innerHTML = `
         <header class="profile">
-          ${avatar}
+          ${avatarHtml(data)}
           <h1>${data.name}</h1>
           ${bioHtml(data)}
         </header>
         <ul class="links" aria-label="Links">${links}</ul>
+        ${socialsHtml(data)}
       `;
 
-      startSusanooConstruction(app);
+      bindInteractions(data);
     }
 
     fetch("data.json")
