@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Hafiz Naufal Rahman</title>
-  <meta name="description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
+  <meta name="description" content="Product Engineering @ Gojek. Resume, travel gallery, and personal projects.">
   <link rel="canonical" href="https://hafiznaufalr.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hafiz Naufal Rahman">
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://hafiznaufalr.github.io/">
-  <meta property="og:title" content="Hafiz Naufal Rahman — Product Engineer at Gojek">
-  <meta property="og:description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
+  <meta property="og:title" content="Hafiz Naufal Rahman — Product Engineering @ Gojek">
+  <meta property="og:description" content="Product Engineering @ Gojek. Resume, travel gallery, and personal projects.">
   <meta property="og:image" content="https://hafiznaufalr.github.io/images/og.jpg?v=1">
   <meta property="og:image:secure_url" content="https://hafiznaufalr.github.io/images/og.jpg?v=1">
   <meta property="og:image:type" content="image/jpeg">
@@ -19,8 +19,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Portrait of Hafiz Naufal Rahman">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hafiz Naufal Rahman — Product Engineer at Gojek">
-  <meta name="twitter:description" content="Product Engineer at Gojek. Resume, travel gallery, and personal projects.">
+  <meta name="twitter:title" content="Hafiz Naufal Rahman — Product Engineering @ Gojek">
+  <meta name="twitter:description" content="Product Engineering @ Gojek. Resume, travel gallery, and personal projects.">
   <meta name="twitter:image" content="https://hafiznaufalr.github.io/images/og.jpg?v=1">
   <meta name="twitter:image:alt" content="Portrait of Hafiz Naufal Rahman">
   <meta name="theme-color" content="#0f0f12">
@@ -138,29 +138,7 @@
       height: 1rem;
       flex: 0 0 auto;
       cursor: pointer;
-      transform-origin: center;
       -webkit-tap-highlight-color: transparent;
-      transition: width 0.2s ease, height 0.2s ease;
-    }
-
-    .bio-icon.is-wink {
-      width: 1.75rem;
-      height: 1.75rem;
-      animation: logo-wink 0.65s ease;
-    }
-
-    @keyframes logo-wink {
-      0% { transform: scale(1) rotate(0deg); }
-      25% { transform: scale(1.15) rotate(-14deg); }
-      50% { transform: scale(0.92) rotate(10deg); }
-      75% { transform: scale(1.08) rotate(-6deg); }
-      100% { transform: scale(1) rotate(0deg); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .bio-icon.is-wink {
-        animation: none;
-      }
     }
 
     .location {
@@ -174,6 +152,53 @@
       flex-direction: column;
       gap: 0.625rem;
       list-style: none;
+    }
+
+    .links > li:first-child .link {
+      position: relative;
+      overflow: visible;
+    }
+
+    .gojek-car {
+      position: absolute;
+      top: 0.4rem;
+      left: calc(100% - 1.85rem);
+      z-index: 2;
+      font-size: 1.05rem;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      animation: gojek-drive 1.05s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+    }
+
+    @keyframes gojek-drive {
+      0% {
+        left: calc(100% - 1.85rem);
+        opacity: 0;
+        transform: translateY(0);
+      }
+      12% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-1px);
+      }
+      88% {
+        opacity: 1;
+      }
+      100% {
+        left: 0.55rem;
+        opacity: 0;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gojek-car {
+        animation: none;
+        display: none;
+      }
     }
 
     .link,
@@ -344,7 +369,7 @@
     function bioHtml(data) {
       if (!data.bio) return "";
       const icon = data.bioIcon
-        ? `<img class="bio-icon" src="${data.bioIcon}" alt="Gojek" data-logo-wink role="button" tabindex="0" title="👀">`
+        ? `<img class="bio-icon" src="${data.bioIcon}" alt="Gojek" data-gojek-tap role="button" tabindex="0" title="🚗">`
         : "";
       const location = data.location
         ? `<p class="location">${data.location}</p>`
@@ -448,12 +473,19 @@
       }
     }
 
-    function winkLogo(icon) {
-      if (!icon || icon.classList.contains("is-wink")) return;
-      icon.classList.add("is-wink");
-      icon.addEventListener(
+    function driveGojekCar() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const firstCard = app.querySelector(".links > li:first-child .link");
+      if (!firstCard || firstCard.querySelector(".gojek-car")) return;
+
+      const car = document.createElement("span");
+      car.className = "gojek-car";
+      car.setAttribute("aria-hidden", "true");
+      car.textContent = "🚗";
+      firstCard.appendChild(car);
+      car.addEventListener(
         "animationend",
-        () => icon.classList.remove("is-wink"),
+        () => car.remove(),
         { once: true }
       );
     }
@@ -474,24 +506,14 @@
       const email = data.email || EMAIL;
       app.querySelector("[data-copy-email]")?.addEventListener("click", () => copyEmail(email));
 
-      const logo = app.querySelector("[data-logo-wink]");
-      logo?.addEventListener("click", () => winkLogo(logo));
+      const logo = app.querySelector("[data-gojek-tap]");
+      logo?.addEventListener("click", driveGojekCar);
       logo?.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          winkLogo(logo);
+          driveGojekCar();
         }
       });
-
-      // ponytail: greet on first paint; skip if user prefers less motion
-      if (
-        logo &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        requestAnimationFrame(() => {
-          setTimeout(() => winkLogo(logo), 350);
-        });
-      }
     }
 
     function render(data) {
