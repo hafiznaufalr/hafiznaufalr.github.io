@@ -162,10 +162,11 @@
     .gojek-car {
       position: absolute;
       top: 0.4rem;
-      left: calc(100% - 1.85rem);
+      left: calc(100% - 2.6rem);
       z-index: 2;
       font-size: 1.05rem;
       line-height: 1;
+      letter-spacing: -0.15em;
       pointer-events: none;
       user-select: none;
       opacity: 0;
@@ -174,7 +175,7 @@
 
     @keyframes gojek-drive {
       0% {
-        left: calc(100% - 1.85rem);
+        left: calc(100% - 2.6rem);
         opacity: 0;
         transform: translateY(0);
       }
@@ -188,7 +189,7 @@
         opacity: 1;
       }
       100% {
-        left: 0.55rem;
+        left: 0.35rem;
         opacity: 0;
         transform: translateY(0);
       }
@@ -481,7 +482,7 @@
       const car = document.createElement("span");
       car.className = "gojek-car";
       car.setAttribute("aria-hidden", "true");
-      car.textContent = "🚗";
+      car.textContent = "🚗💨";
       firstCard.appendChild(car);
       car.addEventListener(
         "animationend",
