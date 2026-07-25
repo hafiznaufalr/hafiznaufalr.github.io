@@ -173,6 +173,12 @@
       animation: gojek-drive 2.2s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
     }
 
+    .gojek-car-smoke {
+      display: inline-block;
+      opacity: 0;
+      animation: gojek-smoke 2.2s cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+    }
+
     @keyframes gojek-drive {
       0% {
         left: calc(100% - 2.6rem);
@@ -195,8 +201,28 @@
       }
     }
 
+    @keyframes gojek-smoke {
+      0%,
+      28% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      42% {
+        opacity: 0.95;
+        transform: scale(1);
+      }
+      88% {
+        opacity: 0.85;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      .gojek-car {
+      .gojek-car,
+      .gojek-car-smoke {
         animation: none;
         display: none;
       }
@@ -482,7 +508,7 @@
       const car = document.createElement("span");
       car.className = "gojek-car";
       car.setAttribute("aria-hidden", "true");
-      car.textContent = "🚗💨";
+      car.innerHTML = '🚗<span class="gojek-car-smoke" aria-hidden="true">💨</span>';
       firstCard.appendChild(car);
       car.addEventListener(
         "animationend",
