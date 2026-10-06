@@ -20,12 +20,6 @@
       "note": "Side quest",
       "emoji": "🌍",
       "url": "https://hafiznaufalr.github.io/see-the-world/"
-    },
-    {
-      "label": "Coming soon",
-      "note": "Building frictionless platform for SMEs",
-      "emoji": "🧩",
-      "comingSoon": true
     }
   ]
 }
